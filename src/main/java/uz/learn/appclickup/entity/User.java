@@ -13,6 +13,7 @@ import uz.learn.appclickup.entity.template.AbsLongEntity;
 import uz.learn.appclickup.entity.template.AbsUUIDEntity;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -44,6 +45,8 @@ public class User extends AbsUUIDEntity implements UserDetails {
     private boolean enabled;
 
     private String emailCode;
+
+    private Timestamp lastActiveTime;
 
     @Enumerated(EnumType.STRING)
     private SystemRoleName systemRoleName;

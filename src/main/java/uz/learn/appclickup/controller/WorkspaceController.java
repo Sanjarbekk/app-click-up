@@ -13,6 +13,7 @@ import uz.learn.appclickup.security.CurrentUser;
 import uz.learn.appclickup.service.WorkspaceService;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -79,5 +80,9 @@ public class WorkspaceController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-
+    @GetMapping("/member/{id}")
+    public HttpEntity<?> getMemberAndGuest(@PathVariable Long id){
+          List<MemberDTO> members = workspaceService.getMemberAndGuest(id);
+          return ResponseEntity.ok(members);
+    }
 }

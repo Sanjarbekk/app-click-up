@@ -5,6 +5,7 @@ import uz.learn.appclickup.payload.ApiResponse;
 import uz.learn.appclickup.payload.MemberDTO;
 import uz.learn.appclickup.payload.WorkspaceDTO;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -21,4 +22,6 @@ public interface WorkspaceService {
     ApiResponse addOrEditOrRemoveWorkspace(Long id, MemberDTO memberDTO);
 
     ApiResponse joinToWorkspace(Long id, User user);
+
+    List<MemberDTO> getMemberAndGuest(Long id);
 }

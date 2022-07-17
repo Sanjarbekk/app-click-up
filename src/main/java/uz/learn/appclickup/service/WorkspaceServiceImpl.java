@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class WorkspaceServiceImpl implements WorkspaceService {
@@ -152,4 +153,29 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         }
         return new ApiResponse("Error", false);
     }
+
+    @Override
+    public List<MemberDTO> getMemberAndGuest(Long id) {
+        List<WorkspaceUser> workspaceUsers = workspaceUserRepository.findAllByWorkspaceId(id);
+        /*List<MemberDTO> members= new ArrayList<>();
+        for (WorkspaceUser workspaceUser: workspaceUsers){
+            members.add(mapEntityToDTO(workspaceUser));
+        }
+         */
+        return workspaceUsers.stream().map(this::mapEntityToDTO).collect(Collectors.toList());
+
+    }
+
+    // mine
+    public MemberDTO mapEntityToDTO(WorkspaceUser workspaceUser){
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setId(workspaceUser.getUser().getId());
+        memberDTO.setFullName(workspaceUser.getUser().getFullName());
+        memberDTO.setEmail(workspaceUser.getUser().getEmail());
+        memberDTO.setRoleName(workspaceUser.getWorkspaceRole().getRoleName());
+        memberDTO.setLastActive(workspaceUser.getUser().getLastActiveTime());
+        return memberDTO;
+
+    }
+
 }
